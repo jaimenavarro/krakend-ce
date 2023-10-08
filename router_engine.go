@@ -2,8 +2,9 @@ package krakend
 
 import (
 	"encoding/json"
-
 	"github.com/gin-gonic/gin"
+	gintrace "gopkg.in/DataDog/dd-trace-go.v1/contrib/gin-gonic/gin"
+	"gopkg.in/DataDog/dd-trace-go.v1/ddtrace/tracer"
 
 	botdetector "github.com/krakendio/krakend-botdetector/v2/gin"
 	httpsecure "github.com/krakendio/krakend-httpsecure/v2/gin"
@@ -17,7 +18,13 @@ import (
 
 // NewEngine creates a new gin engine with some default values and a secure middleware
 func NewEngine(cfg config.ServiceConfig, opt luragin.EngineOptions) *gin.Engine {
+	tracer.Start()
+	defer tracer.Stop()
+
 	engine := luragin.NewEngine(cfg, opt)
+
+	// Use the tracer middleware with your desired service name.
+	engine.Use(gintrace.Middleware("my-web-app"))
 
 	engine.NoRoute(opencensus.HandlerFunc(&config.EndpointConfig{Endpoint: "NoRoute"}, defaultHandler, nil))
 	engine.NoMethod(opencensus.HandlerFunc(&config.EndpointConfig{Endpoint: "NoMethod"}, defaultHandler, nil))

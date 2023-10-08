@@ -38,6 +38,7 @@ require (
 	github.com/xeipuuv/gojsonschema v1.2.1-0.20200424115421-065759f9c3d7
 	go.opencensus.io v0.24.0
 	golang.org/x/sync v0.1.0
+	gopkg.in/DataDog/dd-trace-go.v1 v1.22.0
 )
 
 require (
@@ -248,7 +249,6 @@ require (
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 	google.golang.org/grpc v1.53.0 // indirect
 	google.golang.org/protobuf v1.30.0 // indirect
-	gopkg.in/DataDog/dd-trace-go.v1 v1.22.0 // indirect
 	gopkg.in/Graylog2/go-gelf.v2 v2.0.0-20191017102106-1550ee647df0 // indirect
 	gopkg.in/ini.v1 v1.66.6 // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0 // indirect
